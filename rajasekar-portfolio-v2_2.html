@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajasekar B — Junior Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#FFFFFF;
+    --ink-2:#F7F4EA;
+    --ink-3:#EDE7D6;
+    --paper:#1B2430;
+    --amber:#B96F17;
+    --amber-dim:#8A6326;
+    --slate:#5C6C7C;
+    --text:#26303D;
+    --text-dim:#5B6472;
+    --ok:#2F7D53;
+    --rule: rgba(27,36,48,0.14);
+    --radius: 3px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--amber); color:var(--ink);}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 28px;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:60px;
+  }
+  .brand{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px; font-weight:600; color:var(--amber);
+    letter-spacing:0.02em;
+  }
+  .brand span{color:var(--text-dim);}
+  .navlinks{display:flex; gap:28px; list-style:none; font-family:'IBM Plex Mono', monospace; font-size:12.5px;}
+  .navlinks a{text-decoration:none; color:var(--text-dim); transition:color .2s;}
+  .navlinks a:hover{color:var(--amber);}
+  .navlinks .idx{color:var(--amber-dim); margin-right:4px;}
+  .navlinks a.active{color:var(--amber);}
+  @media (max-width:680px){ .navlinks{display:none;} }
+  .menu-btn{display:none; background:none; border:1px solid var(--rule); border-radius:var(--radius); width:36px; height:32px; cursor:pointer; position:relative;}
+  .menu-btn span{position:absolute; left:9px; right:9px; height:1.5px; background:var(--text-dim);}
+  .menu-btn span:nth-child(1){top:11px;}
+  .menu-btn span:nth-child(2){top:17px;}
+  .menu-btn span:nth-child(3){top:23px;}
+  @media (max-width:680px){ .menu-btn{display:block;} }
+  .mobile-menu{
+    display:none; flex-direction:column; gap:0;
+    background:var(--ink-2); border-bottom:1px solid var(--rule);
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    padding:14px 28px; font-family:'IBM Plex Mono', monospace; font-size:13px;
+    color:var(--text-dim); text-decoration:none; border-top:1px solid var(--rule);
+  }
+  .mobile-menu a .idx{color:var(--amber-dim); margin-right:8px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:80px; padding-bottom:60px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size:44px 44px;
+    opacity:0.35;
+    mask-image: radial-gradient(ellipse at 20% 30%, black 10%, transparent 70%);
+  }
+  .hero-inner{position:relative; z-index:1; width:100%;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--amber);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 3px rgba(111,185,143,0.15);}
+  h1.role{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(34px, 6vw, 58px);
+    line-height:1.06;
+    color:var(--paper);
+    max-width:14ch;
+  }
+  h1.role em{font-style:italic; color:var(--amber); font-weight:500;}
+
+  .terminal{
+    margin-top:38px;
+    background:var(--ink-2);
+    border:1px solid var(--rule);
+    border-radius:var(--radius);
+    max-width:640px;
+    box-shadow:0 20px 50px -24px rgba(27,36,48,0.25);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .term-bar .tdot{width:9px; height:9px; border-radius:50%; background:var(--ink-3); border:1px solid var(--slate);}
+  .term-title{margin-left:8px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);}
+  .term-body{padding:18px 20px 20px; font-family:'IBM Plex Mono', monospace; font-size:13.5px;}
+  .term-line{color:var(--text-dim); margin-bottom:4px;}
+  .term-line .kw{color:#7FB4E0;}
+  .term-line .str{color:var(--ok);}
+  .term-line .fn{color:var(--amber);}
+  #typed-query{color:var(--text); white-space:pre-wrap;}
+  .cursor{display:inline-block; width:7px; height:15px; background:var(--amber); vertical-align:middle; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .result-table{margin-top:14px; border-top:1px dashed var(--rule); padding-top:12px; opacity:0; transform:translateY(6px); transition:opacity .5s ease, transform .5s ease;}
+  .result-table.show{opacity:1; transform:translateY(0);}
+  .result-row{display:grid; grid-template-columns:110px 1fr; gap:10px; padding:3px 0;}
+  .result-row .k{color:var(--amber-dim);}
+  .result-row .v{color:var(--text);}
+  .result-status{margin-top:12px; font-size:12px; color:var(--ok);}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{padding:100px 0;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:44px; border-bottom:1px solid var(--rule); padding-bottom:18px;}
+  .sec-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber-dim);}
+  .sec-title{font-family:'Fraunces', serif; font-size:clamp(24px,3.4vw,34px); color:var(--paper); font-weight:600;}
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:50px;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{color:var(--text-dim); font-size:16px; margin-bottom:16px; max-width:52ch;}
+  .about-text strong{color:var(--paper); font-weight:600;}
+  .stat-card{background:var(--ink-2); border:1px solid var(--rule); border-radius:var(--radius); padding:16px 18px; margin-bottom:12px;}
+  .stat-card .label{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--amber-dim); text-transform:uppercase; letter-spacing:.06em;}
+  .stat-card .value{font-family:'Fraunces', serif; font-size:20px; color:var(--paper); margin-top:4px;}
+
+  /* ---------- SCHEMA / SKILLS ---------- */
+  .schema-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
+  @media (max-width:700px){.schema-grid{grid-template-columns:1fr;}}
+  .table-card{background:var(--ink-2); border:1px solid var(--rule); border-radius:var(--radius); overflow:hidden;}
+  .table-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; background:var(--ink-3);
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+  }
+  .table-head .tname{color:var(--amber);}
+  .table-head .trows{color:var(--text-dim); font-size:11px;}
+  .field-row{
+    display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+    padding:10px 16px; border-top:1px solid var(--rule); font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+  }
+  .field-row .fname{color:var(--text);}
+  .field-row .ftype{color:var(--slate); font-size:11px;}
+  .badge{font-size:10px; padding:2px 7px; border-radius:20px; letter-spacing:.03em;}
+  .badge.core{background:rgba(232,162,60,0.15); color:var(--amber);}
+  .badge.growing{background:rgba(111,185,143,0.13); color:var(--ok);}
+  .table-card{transition:border-color .2s ease, transform .2s ease;}
+  .table-card:hover{border-color:var(--amber-dim); transform:translateY(-2px);}
+  .cost-row{padding:12px 16px; border-top:1px solid var(--rule);}
+  .cost-row .cost-label{display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-dim); margin-bottom:6px;}
+  .cost-bar{height:4px; background:var(--ink-3); border-radius:2px; overflow:hidden;}
+  .cost-fill{height:100%; background:var(--amber); border-radius:2px; width:0%; transition:width 1s ease;}
+  .cost-fill.in{width:var(--pct);}
+
+  /* ---------- PROJECT / PIPELINE ---------- */
+  .pipeline{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:30px;}
+  @media (max-width:760px){.pipeline{grid-template-columns:1fr;}}
+  .stage{background:var(--ink-2); border:1px solid var(--rule); border-radius:var(--radius); padding:20px;}
+  .stage .stage-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--amber-dim); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;}
+  .stage h4{font-family:'Fraunces', serif; font-size:17px; color:var(--paper); margin-bottom:8px; font-weight:600;}
+  .stage p{font-size:13.5px; color:var(--text-dim);}
+  .stage ul{margin-top:8px; padding-left:16px; color:var(--text-dim); font-size:13px;}
+  .project-card{background:var(--ink-2); border:1px solid var(--rule); border-radius:var(--radius); padding:28px 30px;}
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;}
+  .project-title{font-family:'Fraunces', serif; font-size:24px; color:var(--paper); font-weight:600;}
+  .project-sub{color:var(--text-dim); font-size:14px; margin-top:6px; max-width:60ch;}
+  .stack-pills{display:flex; gap:8px; flex-wrap:wrap;}
+  .pill{font-family:'IBM Plex Mono', monospace; font-size:11px; border:1px solid var(--rule); color:var(--text-dim); padding:4px 10px; border-radius:20px;}
+  .secondary-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px;}
+  @media (max-width:700px){.secondary-grid{grid-template-columns:1fr;}}
+  .mini-card{background:var(--ink-2); border:1px solid var(--rule); border-radius:var(--radius); padding:22px; transition:border-color .2s ease, transform .2s ease;}
+  .mini-card:hover{border-color:var(--amber-dim); transform:translateY(-2px);}
+  .mini-tag{font-size:10.5px; color:var(--amber-dim); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
+  .mini-card h4{font-family:'Fraunces', serif; font-size:16.5px; color:var(--paper); font-weight:600; margin-bottom:8px;}
+  .mini-card p{font-size:13px; color:var(--text-dim); margin-bottom:12px;}
+
+  /* ---------- TIMELINE / MIGRATION LOG ---------- */
+  .log{border-left:1px solid var(--rule); margin-left:6px;}
+  .log-entry{position:relative; padding:0 0 34px 30px;}
+  .log-entry::before{
+    content:""; position:absolute; left:-5.5px; top:3px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--ink); border:2px solid var(--amber);
+  }
+  .log-hash{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--amber-dim);}
+  .log-title{font-family:'Fraunces', serif; font-size:18px; color:var(--paper); margin:4px 0 4px; font-weight:600;}
+  .log-desc{color:var(--text-dim); font-size:14px; max-width:58ch;}
+
+  /* ---------- CONTACT ---------- */
+  .config-card{background:var(--ink-2); border:1px solid var(--rule); border-radius:var(--radius); padding:8px 0; max-width:640px;}
+  .config-row{display:grid; grid-template-columns:150px 1fr; gap:14px; padding:12px 22px; font-family:'IBM Plex Mono', monospace; font-size:13.5px; align-items:center;}
+  .config-row:not(:last-child){border-bottom:1px solid var(--rule);}
+  .config-row .ck{color:var(--amber-dim);}
+  .config-row .cv a{color:var(--text); text-decoration:none; border-bottom:1px solid var(--rule);}
+  .config-row .cv a:hover{color:var(--amber); border-color:var(--amber);}
+
+  footer{padding:40px 0 60px; text-align:center; color:var(--text-dim); font-family:'IBM Plex Mono', monospace; font-size:11.5px;}
+  footer .amber{color:var(--amber-dim);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">rajasekar<span>.db</span></div>
+    <ul class="navlinks">
+      <li><a href="#about"><span class="idx">01</span>about</a></li>
+      <li><a href="#skills"><span class="idx">02</span>schema</a></li>
+      <li><a href="#work"><span class="idx">03</span>project</a></li>
+      <li><a href="#log"><span class="idx">04</span>log</a></li>
+      <li><a href="#contact"><span class="idx">05</span>connect</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"><span class="idx">01</span>about</a>
+    <a href="#skills"><span class="idx">02</span>schema</a>
+    <a href="#work"><span class="idx">03</span>project</a>
+    <a href="#log"><span class="idx">04</span>log</a>
+    <a href="#contact"><span class="idx">05</span>connect</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="dot"></span>OPEN TO WORK · JUNIOR DATA ANALYST ROLES</div>
+    <h1 class="role">Turning raw tables into <em>decisions</em>.</h1>
+
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+        <span class="term-title">analyst_profile.sql</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="kw">--</span> run this query to meet me</div>
+        <div id="typed-query"></div>
+        <div class="result-table" id="result-table">
+          <div class="result-row"><span class="k">name</span><span class="v">Rajasekar B</span></div>
+          <div class="result-row"><span class="k">based_in</span><span class="v">Tirunelveli, Tamil Nadu, India</span></div>
+          <div class="result-row"><span class="k">stack</span><span class="v">SQL · Power BI · Python · Excel · DAX</span></div>
+          <div class="result-row"><span class="k">flagship</span><span class="v">11,147+ transactions · ₹1.99 Cr revenue analyzed</span></div>
+          <div class="result-row"><span class="k">status</span><span class="v">fresher, actively interviewing</span></div>
+          <div class="result-status mono">✓ 1 row returned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-tag mono">01 / ABOUT</span><span class="sec-title">Reading the fine print</span></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>fresher-level Junior Data Analyst</strong> who likes the moment a messy spreadsheet turns into a query someone can actually make a decision from. My training ground has been SQL joins, Power BI models, and Python scripts written to clean the kind of data that never comes clean the first time.</p>
+        <p>I hold a <strong>B.Com in Corporate Secretaryship</strong> from St. John's College, Tirunelveli, and I completed the <strong>IBM Data Analytics Professional Certificate</strong> in June 2026 — a shift in direction, not a detour, since it's the analytical thinking from commerce that made SQL feel familiar rather than foreign.</p>
+        <p>My flagship project analyzed <strong>11,147+ fuel transactions worth ₹1.99 Cr in revenue</strong> across 7 relational SQL tables. I'm honest about where I am: my Python is focused on data cleaning and transformation with Pandas, not a claim to expertise I haven't earned yet. What I bring instead is thoroughness, and a habit of documenting everything I build.</p>
+      </div>
+      <div>
+        <div class="stat-card"><div class="label">Currently</div><div class="value">Job-seeking, Junior Data Analyst</div></div>
+        <div class="stat-card"><div class="label">Flagship project</div><div class="value">₹1.99 Cr revenue · 11,147+ transactions analyzed</div></div>
+        <div class="stat-card"><div class="label">Certification</div><div class="value">IBM Data Analytics Professional Cert. (06/2026)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-tag mono">02 / SCHEMA</span><span class="sec-title">My skillset, modeled as tables</span></div>
+    <div class="schema-grid">
+
+      <div class="table-card">
+        <div class="table-head"><span class="tname">core_analysis</span><span class="trows">4 fields</span></div>
+        <div class="field-row"><span class="fname">sql_mysql</span><span class="ftype">JOINS, INDEXING, TRIGGERS</span><span class="badge core">core</span></div>
+        <div class="field-row"><span class="fname">power_bi</span><span class="ftype">DASHBOARD DESIGN</span><span class="badge core">core</span></div>
+        <div class="field-row"><span class="fname">dax</span><span class="ftype">MEASURES</span><span class="badge core">core</span></div>
+        <div class="field-row"><span class="fname">power_query_m</span><span class="ftype">ETL</span><span class="badge core">core</span></div>
+        <div class="cost-row">
+          <div class="cost-label"><span>query cost — proficiency</span><span>82%</span></div>
+          <div class="cost-bar"><div class="cost-fill" style="--pct:82%"></div></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-head"><span class="tname">wrangling</span><span class="trows">3 fields</span></div>
+        <div class="field-row"><span class="fname">python_pandas</span><span class="ftype">CLEANING, TRANSFORMATION</span><span class="badge growing">growing</span></div>
+        <div class="field-row"><span class="fname">excel</span><span class="ftype">PIVOT TABLES, VLOOKUP</span><span class="badge core">core</span></div>
+        <div class="field-row"><span class="fname">statistics</span><span class="ftype">MEAN, MEDIAN, TREND</span><span class="badge core">core</span></div>
+        <div class="cost-row">
+          <div class="cost-label"><span>query cost — proficiency</span><span>70%</span></div>
+          <div class="cost-bar"><div class="cost-fill" style="--pct:70%"></div></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-head"><span class="tname">tooling</span><span class="trows">2 fields</span></div>
+        <div class="field-row"><span class="fname">sql_server</span><span class="ftype">DATABASE ENGINE</span><span class="badge core">core</span></div>
+        <div class="field-row"><span class="fname">bi_reporting</span><span class="ftype">STAKEHOLDER REPORTING</span><span class="badge core">core</span></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-head"><span class="tname">foundations</span><span class="trows">2 fields</span></div>
+        <div class="field-row"><span class="fname">b_com_corp_sec</span><span class="ftype">DEGREE, GPA 7.1/10</span><span class="badge core">core</span></div>
+        <div class="field-row"><span class="fname">ibm_data_analytics</span><span class="ftype">CERT, 06/2026</span><span class="badge core">core</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-tag mono">03 / PROJECT</span><span class="sec-title">Case study</span></div>
+    <div class="project-card">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Petrol Pump Sales &amp; Operations Analytics Dashboard</div>
+          <div class="project-sub">A 4-tab interactive Power BI dashboard (Overview, Revenue &amp; P&amp;L, Fuel &amp; Stock, Operations) monitoring ₹1.99 Cr revenue, 11,147 transactions, and 2,14,067 L of fuel sold. May–June 2026.</div>
+        </div>
+        <div class="stack-pills">
+          <span class="pill">Power BI</span><span class="pill">SQL Server</span><span class="pill">MySQL</span><span class="pill">Python / Pandas</span>
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <div class="stage">
+          <div class="stage-tag">Source</div>
+          <h4>7 relational SQL tables</h4>
+          <ul>
+            <li>Daily sales &amp; shift performance</li>
+            <li>Fuel stock, delivery &amp; payroll</li>
+            <li>Repair/maintenance, payment methods</li>
+          </ul>
+        </div>
+        <div class="stage">
+          <div class="stage-tag">Transform</div>
+          <h4>Cleaning &amp; modeling</h4>
+          <ul>
+            <li>Python/Pandas + Power Query across 9 sheets</li>
+            <li>Missing values, duplicates, type fixes</li>
+            <li>Schema normalization, DAX measures</li>
+          </ul>
+        </div>
+        <div class="stage">
+          <div class="stage-tag">Output</div>
+          <h4>4-tab Power BI dashboard</h4>
+          <ul>
+            <li>Peak sales periods &amp; low-stock alerts</li>
+            <li>5 payment channels, 3-shift productivity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-tag mono">04 / LOG</span><span class="sec-title">Migration history</span></div>
+    <div class="log">
+      <div class="log-entry">
+        <div class="log-hash">commit · 06/2022</div>
+        <div class="log-title">Started B.Com, Corporate Secretaryship</div>
+        <div class="log-desc">St. John's College, Tirunelveli — built the analytical and compliance-minded foundation that later made structured data feel intuitive.</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-hash">commit · 05/2025</div>
+        <div class="log-title">Graduated, GPA 7.1/10</div>
+        <div class="log-desc">Completed B.Com and began pivoting toward data analytics — SQL, Power BI, and Python fundamentals.</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-hash">commit · 05/2026 – 06/2026</div>
+        <div class="log-title">Built the petrol pump analytics dashboard</div>
+        <div class="log-desc">End-to-end project spanning SQL Server, MySQL, Python/Pandas, Power Query, and a 4-tab Power BI dashboard on 11,147+ real transactions.</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-hash">commit · 06/2026</div>
+        <div class="log-title">Earned IBM Data Analytics Professional Certificate</div>
+        <div class="log-desc">IBM Skills Network.</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-hash">HEAD · now</div>
+        <div class="log-title">Actively applying for Junior Data Analyst roles</div>
+        <div class="log-desc">Refining resume, portfolio, and interview readiness — this page included.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="sec-tag mono">05 / CONNECT</span><span class="sec-title">Connection string</span></div>
+    <div class="config-card">
+      <div class="config-row"><span class="ck">email</span><span class="cv"><a href="mailto:rajasekarb869@gmail.com">rajasekarb869@gmail.com</a></span></div>
+      <div class="config-row"><span class="ck">phone</span><span class="cv"><a href="tel:+918778581126">+91 87785 81126</a></span></div>
+      <div class="config-row"><span class="ck">linkedin</span><span class="cv"><a href="https://linkedin.com/in/raja-sekar-b91776296" target="_blank" rel="noopener">linkedin.com/in/raja-sekar-b91776296</a></span></div>
+      <div class="config-row"><span class="ck">location</span><span class="cv">Tirunelveli, Tamil Nadu, India</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Built by Rajasekar B · <span class="amber">SELECT * FROM opportunities WHERE fit = true;</span></div>
+</footer>
+
+<script>
+  // Typing effect for hero query
+  const query = `SELECT name, location, stack, status\nFROM analysts\nWHERE name = 'Rajasekar B';`;
+  const el = document.getElementById('typed-query');
+  const resultBox = document.getElementById('result-table');
+  let i = 0;
+  function typeChar(){
+    if(i <= query.length){
+      el.innerHTML = escapeHtml(query.slice(0, i)) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(typeChar, 18);
+    } else {
+      el.innerHTML = escapeHtml(query.slice(0, i));
+      setTimeout(()=> resultBox.classList.add('show'), 250);
+    }
+  }
+  function escapeHtml(str){
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = query;
+    resultBox.classList.add('show');
+  } else {
+    typeChar();
+  }
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Animate proficiency bars into view
+  const costIo = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.4});
+  document.querySelectorAll('.cost-fill').forEach(el=>costIo.observe(el));
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', ()=>{
+    const open = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', ()=> { mobileMenu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); });
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.navlinks a');
+  const navIo = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        navAnchors.forEach(a=>{
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      }
+    });
+  }, {rootMargin: '-45% 0px -50% 0px'});
+  sections.forEach(s=>navIo.observe(s));
+</script>
+
+</body>
+</html>
